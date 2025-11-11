@@ -30,6 +30,9 @@ public class App {
 		int altMax = altura1 > altura2 ? altura1 : altura2;
 		int anchTot = (altura1 * 2 - 1) + (altura2 * 2 - 1) + 1;
 
+		// VERSION 3
+
+		dibuja (fila - altura1 - altura2 - 1);
 		
 		// version 2
 
