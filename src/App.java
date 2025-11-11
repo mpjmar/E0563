@@ -1,14 +1,19 @@
 public class App {
 
-	public static void dibujaFila(int fila) {
-	
-		System.out.print();
+	public static void dibujaFila(int fila, int espacios) {
+
+		for (int j = 0; j <= espacios - fila; j++)
+			System.out.print(" ");
+		for (int j = 0; j < fila * 2 - 1; j++)
+			System.out.print("*");
 	}
 	
     public static void main(String[] args) throws Exception {
 
 		boolean correcto = false;
 		int altura1 = 0, altura2 = 0;
+		int base1 = 0, base2 = 0;
+		int espacios1 = 0, espacios2 = 0;
 
 		do {
 			try {
@@ -27,45 +32,23 @@ public class App {
 			}
 		} while (!correcto);
 
-		int altMax = altura1 > altura2 ? altura1 : altura2;
+		int altMax = Math.max(altura1, altura2);
 		int anchTot = (altura1 * 2 - 1) + (altura2 * 2 - 1) + 1;
 
-		// VERSION 3
+		base1 = altura1 * 2 - 1;
+		base2 = altura2 * 2 - 1;
+		espacios1 = altura1 - 1;
+		espacios2 = base1 + 1 + altura2;
 
-		dibuja (fila - altura1 - altura2 - 1);
-		
-		// version 2
-
-		for (int i = 0; i < altMax; i++) {
-			int j = 0;
-			if (altura1 > altura2) {
-				while (j < altura1 - i - 1){
-					System.out.print(" ");
-					j++;
-				}
-				while (j < i * 2 - 1) {
-					System.out.print("*");
-					j++;
-				}
+		for (int i = altMax; i > 0 ; i++) {
+			if (i > altura1) {
+				dibujaFila(i, espacios1);
+			}
+			else if (i > altura2) {
+				dibujaFila(i, espacios2);
 			}
 			System.out.println();
 		}
 
-
-		// version 1
-
-		for (int i = 0; i < altMax; i++) {
-			for (int j = 0; j < anchTot; j++) {
-				if (altura1 > altura2) {
-					if (j < altura1 - i - 1)
-						System.out.print(" ");
-					//if (j < i * 2 - 1)
-					//	System.out.print("*");
-					else
-						System.out.print("*");
-				}
-			}
-			System.out.println();
-		}
 	}
 }
