@@ -1,4 +1,10 @@
 public class App {
+
+	public static void dibujaFila(int fila) {
+	
+		System.out.print();
+	}
+	
     public static void main(String[] args) throws Exception {
 
 		boolean correcto = false;
