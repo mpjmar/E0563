@@ -1,50 +1,16 @@
 public class AppChati {
+    public static void main(String[] args) {
 
-	 // Dibuja una fila de la pirámide con espacios antes y después
-	 public static void dibujaFila(int fila, int altura) {
-        // Espacios antes
-        for (int j = 0; j < altura - fila; j++)
-            System.out.print(" ");
-        // Asteriscos
-        for (int j = 0; j < fila * 2 - 1; j++)
-            System.out.print("*");
-        // Espacios después para completar el ancho
-        for (int j = 0; j < altura - fila; j++)
-            System.out.print(" ");
-    }
-
-    // Dibuja espacios cuando la pirámide no tiene contenido en esa fila
-    public static void dibujaEspacios(int cantidad) {
-        for (int j = 0; j < cantidad; j++)
-            System.out.print(" ");
-    }
-
-    // Dibuja una pirámide completa alineada por la base
-    public static void dibujaPiramide(int filaActual, int alturaMax, int alturaPiramide) {
-        int base = alturaPiramide * 2 - 1;
-        
-        if (filaActual <= alturaMax - alturaPiramide) {
-            // La pirámide no ha empezado, dibuja espacios
-            dibujaEspacios(base);
-        } else {
-            // Dibuja la fila correspondiente de la pirámide
-            int fila = filaActual - (alturaMax - alturaPiramide);
-            dibujaFila(fila, alturaPiramide);
-        }
-    }
-	
-    public static void main(String[] args) throws Exception {
-
-		boolean correcto = false;
-		int altura1 = 0, altura2 = 0;
+        boolean correcto = false;
+		int h1 = 0, h2 = 0;
 
 		do {
 			try {
 				System.out.print("Introduzca la altura de la primera pirámide: ");
-				altura1 = Integer.parseInt(System.console().readLine());
+				h1 = Integer.parseInt(System.console().readLine());
 				System.out.print("Introduzca la altura de la segunda pirámide: ");
-				altura2 = Integer.parseInt(System.console().readLine());
-				correcto = altura1 > 1 && altura2 > 1;
+				h2 = Integer.parseInt(System.console().readLine());
+				correcto = h1 > 1 && h2 > 1;
 				if (!correcto) System.out.println("La altura debe ser mayor que 1.");
 			}
 			catch (NumberFormatException e) {
@@ -55,13 +21,47 @@ public class AppChati {
 			}
 		} while (!correcto);
 
-		int alturaMax = Math.max(altura1, altura2);
 
-		for (int i = 1; i <= alturaMax; i++) {
-            dibujaPiramide(i, alturaMax, altura1);
+        int maxAltura = Math.max(h1, h2);
+
+        for (int fila = 1; fila <= maxAltura; fila++) {
+            // Primera pirámide
+            imprimirFilaPiramide(fila, h1, maxAltura);
+
+            // Espacio entre pirámides
             System.out.print(" ");
-            dibujaPiramide(i, alturaMax, altura2);
+
+            // Segunda pirámide
+            imprimirFilaPiramide(fila, h2, maxAltura);
+
+            // Salto de línea
             System.out.println();
         }
-	}
+
+    }
+
+    private static void imprimirFilaPiramide(int filaActual, int altura, int alturaMax) {
+        int offset = alturaMax - altura; // diferencia para alinear por la base
+
+        if (filaActual <= offset) {
+            // Fila por encima de la pirámide
+            for (int i = 0; i < (altura * 2 - 1); i++) {
+                System.out.print(" ");
+            }
+        } else {
+            int nivel = filaActual - offset; // fila real dentro de la pirámide
+            int espacios = altura - nivel;
+            int asteriscos = 2 * nivel - 1;
+
+            // Espacios iniciales
+            for (int i = 0; i < espacios; i++) {
+                System.out.print(" ");
+            }
+
+            // Asteriscos
+            for (int i = 0; i < asteriscos; i++) {
+                System.out.print("*");
+            }
+        }
+    }
 }
